@@ -3,20 +3,26 @@ package tests;
 import com.codeborne.selenide.AssertionMode;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.Description;
 import io.qameta.allure.selenide.AllureSelenide;
+import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.ITestListener;
+import org.testng.annotations.*;
 import pages.CartPage;
 import pages.LoginPage;
 import org.testng.asserts.SoftAssert;
 import pages.MyAccountPage;
 import pages.TShirtsPage;
-
+import static com.codeborne.selenide.Configuration.browser;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import utils.ScreenshotUtil;
 
+@Listeners(TestListener.class)
+@Log4j2
 public class BaseTest {
 
     LoginPage loginPage;
@@ -24,28 +30,41 @@ public class BaseTest {
     TShirtsPage tShirtsPage;
     CartPage cartPage;
 
+    @Parameters({"browser"})
     @BeforeMethod
-    public void setup() {
-        FirefoxOptions options = new FirefoxOptions();
-        //options.addArguments("--start-maximized");  //можно прописать только через опции Selenium, в Селениде нет
-        //options.addArguments("--disable-notifications");
-//        options.addArguments("--allow-insecure-localhost");
-//        options.addArguments("--disable-web-security");
-//        options.addArguments("--ignore-certificate-errors");
-//        options.addArguments("--unsafely-treat-insecure-origin-as-secure=http://prestashop.qatestlab.com.ua");
-        Configuration.browserCapabilities = options;
-        Configuration.browser = "firefox";  //Указывается браузер
-        Configuration.browserSize = "1920x1080"; // Запуск в полноэкранном режиме
-        Configuration.headless = false;  //выключаются заголовки
-        Configuration.timeout = 10000;   //тайм аут при открытии страницы
-        Configuration.clickViaJs = true;  //взаимодействие с элементами (клики) через JavaScript
-        Configuration.baseUrl = "http://prestashop.qatestlab.com.ua";  //базовый url, используется в методе open
+    @Description("Открытие браузера")
+    public void setup(@Optional("fireFox") String browser) {
+        if(browser.equalsIgnoreCase("firefox")) {
+            FirefoxOptions options = new FirefoxOptions();
+            Configuration.browserCapabilities = options;
+            Configuration.browser = "firefox";
+            Configuration.browserSize = "1920x1080";
+            Configuration.headless = false;
+            Configuration.timeout = 10000;
+            Configuration.clickViaJs = true;
+            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua";
+            Configuration.reportsFolder = "target/allure-results";
+        } else if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--start-maximized");
+            options.addArguments("--headless");
+            options.addArguments("--disable-notifications");
+            options.addArguments("--allow-insecure-localhost");
+            options.addArguments("--disable-web-security");
+            options.addArguments("--ignore-certificate-errors");
+            options.addArguments("--unsafely-treat-insecure-origin-as-secure=http://prestashop.qatestlab.com.ua");
+            Configuration.browserCapabilities = options;
+            Configuration.browser = "chrome";
+            Configuration.timeout = 10000;
+            Configuration.clickViaJs = true;
+            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua";
+            Configuration.reportsFolder = "target/allure-results";
+        }
 
         loginPage = new LoginPage();
         myAccountPage = new MyAccountPage();
         tShirtsPage = new TShirtsPage();
         cartPage = new CartPage();
-
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
@@ -54,7 +73,9 @@ public class BaseTest {
     }
 
     @AfterMethod(alwaysRun = true)
+    @Description("Закрытие браузера")
     public void close() {
+        ScreenshotUtil.attachScreenshot("Screenshot before closing the browser");
         closeWebDriver();
     }
 }
