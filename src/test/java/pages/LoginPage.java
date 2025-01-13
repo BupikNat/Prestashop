@@ -3,11 +3,11 @@ package pages;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.byTitle;
+import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -20,15 +20,15 @@ public class LoginPage {
 
     @Step("")
     public void openPage() {
-        log.info("Open page Prestashop/ru");
-        open("/ru");
-        $(byTitle("Войти в учетную запись покупателя")).shouldBe(Condition.visible);
+        log.info("Open page Prestashop");
+        open("http://prestashop.qatestlab.com.ua");
+        $(".login").shouldBe(Condition.visible);
     }
 
     @Step("")
     public void clickOnLoginButton() {
         log.info("Click on Login button");
-        $(byText("Войти")).click();
+        $(By.cssSelector(".login")).click();
         $(byText("Authentication")).shouldBe(Condition.visible);
     }
 
