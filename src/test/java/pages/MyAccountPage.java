@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class MyAccountPage {
 
     private final String WOMEN = "[title='Women']",
-            T_SHIRTS = "[title=T-shirts]",
+            T_SHIRTS = "[title='T-shirts']",
             TSHIRTS_PAGE = "//span[@class='cat-name' and contains(text(),'T-shirts')]";
 
     @Step("")
