@@ -33,7 +33,7 @@ public class BaseTest {
     @Parameters({"browser"})
     @BeforeMethod
     @Description("Открытие браузера")
-    public void setup(@Optional("fireFox") String browser) {
+    public void setup(@Optional("firefox") String browser) {
         if(browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
             Configuration.browserCapabilities = options;
