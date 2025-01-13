@@ -39,7 +39,7 @@ public class BaseTest {
             Configuration.browserCapabilities = options;
             Configuration.browser = "firefox";
             Configuration.browserSize = "1920x1080";
-            Configuration.headless = false;
+            Configuration.headless = true;
             Configuration.timeout = 10000;
             Configuration.clickViaJs = true;
             Configuration.baseUrl = "http://prestashop.qatestlab.com.ua/ru/";
