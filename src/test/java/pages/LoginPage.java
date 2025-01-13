@@ -21,7 +21,7 @@ public class LoginPage {
     @Step("")
     public void openPage() {
         log.info("Open page Prestashop");
-        open("http://prestashop.qatestlab.com.ua");
+        open("http://prestashop.qatestlab.com.ua/ru/");
         $(".login").shouldBe(Condition.visible);
     }
 

@@ -42,6 +42,7 @@ public class BaseTest {
             Configuration.headless = false;
             Configuration.timeout = 10000;
             Configuration.clickViaJs = true;
+            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua/ru/";
             Configuration.reportsFolder = "target/allure-results";
         } else if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
