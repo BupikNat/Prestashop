@@ -52,12 +52,12 @@ public class BaseTest {
             options.addArguments("--allow-insecure-localhost");
             options.addArguments("--disable-web-security");
             options.addArguments("--ignore-certificate-errors");
-            options.addArguments("--unsafely-treat-insecure-origin-as-secure=http://prestashop.qatestlab.com.ua");
+            options.addArguments("--unsafely-treat-insecure-origin-as-secure=http://prestashop.qatestlab.com.ua/ru/");
             Configuration.browserCapabilities = options;
             Configuration.browser = "chrome";
             Configuration.timeout = 10000;
             Configuration.clickViaJs = true;
-            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua";
+            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua/ru/";
             Configuration.reportsFolder = "target/allure-results";
         }
 
@@ -79,3 +79,4 @@ public class BaseTest {
         closeWebDriver();
     }
 }
+
