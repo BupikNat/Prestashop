@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -19,9 +20,9 @@ public class LoginPage {
             BUTTON_SIGN_IN = "[id=SubmitLogin]";
 
     @Step("")
-    public void openPage() {
+    public void openPage(String baseUrl) {
         log.info("Open page Prestashop");
-        open("http://prestashop.qatestlab.com.ua/ru/");
+        open(baseUrl);
         $(".login").shouldBe(Condition.visible);
     }
 
@@ -34,7 +35,7 @@ public class LoginPage {
 
     @Step("Залогиниться под юзером {user} и паролем {password}")
     public void login(String user, String password) {
-        log.info("Login into My Account");
+        log.info("Login into My Account ${}");
         $(USER).setValue(user);
         $(PASSWORD).setValue(password);
         $(BUTTON_SIGN_IN).click();

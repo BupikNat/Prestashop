@@ -8,12 +8,12 @@ import org.testng.annotations.Test;
 @Log4j2
 public class BuyingClothTest extends BaseTest {
 
-   @Test(testName = "Login user", description = "Check login", retryAnalyzer = Retry.class)
+   @Test(testName = "Login user", description = "Check login")
    @Description("Log in user")
    public void loginUser () {
-       loginPage.openPage();
+       loginPage.openPage(baseUrl);
        loginPage.clickOnLoginButton();
-       loginPage.login("lerodev772@chansd.com", "qwert1234");
+       loginPage.login(user, password);
        myAccountPage.openTShortsPage();
        tShirtsPage.addProductToTheCart();
        //cartPage.productAddedToTheCart();

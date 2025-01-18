@@ -19,45 +19,46 @@ import pages.MyAccountPage;
 import pages.TShirtsPage;
 import static com.codeborne.selenide.Configuration.browser;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+
+import utils.PropertyReader;
 import utils.ScreenshotUtil;
 
 @Listeners(TestListener.class)
 @Log4j2
 public class BaseTest {
 
-    LoginPage loginPage;
-    MyAccountPage myAccountPage;
+    protected LoginPage loginPage;
+    public MyAccountPage myAccountPage;
     TShirtsPage tShirtsPage;
     CartPage cartPage;
+
+    protected static String baseUrl = System.getProperty("baseUrl", PropertyReader.getProperty("baseUrl"));
+    protected static String user = System.getProperty("user", PropertyReader.getProperty("user"));
+    protected static String password = System.getProperty("password", PropertyReader.getProperty("password"));
+    //protected static String wrongPassword = System.getProperty("wrongPassword", PropertyReader.getProperty("wrongPassword"));
 
     @Parameters({"browser"})
     @BeforeMethod
     @Description("Открытие браузера")
     public void setup(@Optional("firefox") String browser) {
         if(browser.equalsIgnoreCase("firefox")) {
-            FirefoxOptions options = new FirefoxOptions();
-            Configuration.browserCapabilities = options;
             Configuration.browser = "firefox";
             Configuration.browserSize = "1920x1080";
-            Configuration.headless = true;
+            //Configuration.headless = true;
             Configuration.timeout = 10000;
             Configuration.clickViaJs = true;
-            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua/ru/";
+            Configuration.baseUrl =baseUrl;
             Configuration.reportsFolder = "target/allure-results";
         } else if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--start-maximized");
             options.addArguments("--headless");
             options.addArguments("--disable-notifications");
-            options.addArguments("--allow-insecure-localhost");
-            options.addArguments("--disable-web-security");
-            options.addArguments("--ignore-certificate-errors");
-            options.addArguments("--unsafely-treat-insecure-origin-as-secure=http://prestashop.qatestlab.com.ua/ru/");
             Configuration.browserCapabilities = options;
             Configuration.browser = "chrome";
             Configuration.timeout = 10000;
             Configuration.clickViaJs = true;
-            Configuration.baseUrl = "http://prestashop.qatestlab.com.ua/ru/";
+            Configuration.baseUrl =baseUrl;
             Configuration.reportsFolder = "target/allure-results";
         }
 
