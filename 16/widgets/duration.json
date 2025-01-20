@@ -1,0 +1,1 @@
+[{"uid":"376955d8a881cf51","name":"Check creation of new account","time":{"start":1737391700464,"stop":1737391730174,"duration":29710},"status":"passed","severity":"normal"},{"uid":"e0c3be93b746d48c","name":"Check login","time":{"start":1737391731345,"stop":1737391737366,"duration":6021},"status":"passed","severity":"normal"}]
