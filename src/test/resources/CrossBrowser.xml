@@ -8,13 +8,13 @@
     </listeners>
     <test name="FireFox">
         <classes>
-            <class name="tests.BuyingClothTest"/>
+            <class name="tests.LoginTest"/>
             <parameter name="browser" value="firefox"></parameter>
         </classes>
     </test> <!-- Test -->
     <test name="Chrome">
         <classes>
-            <class name="tests.BuyingClothTest"/>
+            <class name="tests.LoginTest"/>
             <parameter name="browser" value="chrome"></parameter>
         </classes>
     </test> <!-- Test -->

@@ -12,25 +12,23 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.ITestListener;
 import org.testng.annotations.*;
-import pages.CartPage;
-import pages.LoginPage;
-import org.testng.asserts.SoftAssert;
-import pages.MyAccountPage;
-import pages.TShirtsPage;
-import static com.codeborne.selenide.Configuration.browser;
+import pages.*;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
-
 import utils.PropertyReader;
 import utils.ScreenshotUtil;
+import pages.PersonalInfoPage;
 
 @Listeners(TestListener.class)
 @Log4j2
 public class BaseTest {
 
-    protected LoginPage loginPage;
+    public LoginPage loginPage;
     public MyAccountPage myAccountPage;
-    TShirtsPage tShirtsPage;
-    CartPage cartPage;
+    public TShirtsPage tShirtsPage;
+    public CartPage cartPage;
+    public CreateAccountPage createAccountPage;
+    public PersonalInfoPage personalInfoPage;
+
 
     protected static String baseUrl = System.getProperty("baseUrl", PropertyReader.getProperty("baseUrl"));
     protected static String user = System.getProperty("user", PropertyReader.getProperty("user"));
@@ -44,7 +42,7 @@ public class BaseTest {
         if(browser.equalsIgnoreCase("firefox")) {
             Configuration.browser = "firefox";
             Configuration.browserSize = "1920x1080";
-            //Configuration.headless = true;
+            Configuration.headless = true;
             Configuration.timeout = 10000;
             Configuration.clickViaJs = true;
             Configuration.baseUrl =baseUrl;
@@ -66,6 +64,8 @@ public class BaseTest {
         myAccountPage = new MyAccountPage();
         tShirtsPage = new TShirtsPage();
         cartPage = new CartPage();
+        createAccountPage = new CreateAccountPage();
+        personalInfoPage = new PersonalInfoPage();
 
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
                 .screenshots(true)
@@ -80,4 +80,3 @@ public class BaseTest {
         closeWebDriver();
     }
 }
-
